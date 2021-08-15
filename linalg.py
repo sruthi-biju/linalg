@@ -18,3 +18,9 @@ class Matrix():
             self.grid = [[bb, -ab], [-ba, aa]]
         else:
             print('non-invertible.')
+    def multiply(self1,self2):
+        aa = self1.grid[0][0] * self2.grid[0][0] + self1.grid[0][1] * self2.grid[1][0]
+        ab = self1.grid[0][0] * self2.grid[0][1] + self1.grid[0][1] * self2.grid[1][1]
+        ba = self1.grid[1][0] * self2.grid[0][0] + self1.grid[1][1] * self2.grid[1][0]
+        bb = self1.grid[1][0] * self2.grid[0][1] + self1.grid[1][1] * self2.grid[1][1]
+        self1.product= [[aa, ab], [ba, bb]]        
