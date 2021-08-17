@@ -18,3 +18,11 @@ class Matrix():
             self.grid = [[bb, -ab], [-ba, aa]]
         else:
             print('non-invertible.')
+            class matrix():
+    def __init__(self, aa, ab, ba, bb):
+        self.grid[[aa, ab], [ba,bb]]
+        X = self.grid
+    def __init__(self, xx, xy, yx, yy):    
+        self.grid[[xx, xy], [yx, yy]]
+        Y = self.grid
+    def multiplyleft(self, Y): 
