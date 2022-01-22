@@ -1,30 +1,25 @@
 import math
 from copy import deepcopy 
 
-def sub_matrix(matrix, rows, column)
+def sub_matrix(matrix, column):
     new_matrix = deepcopy(matrix)
-    new_matrix.remove(matrix[row, 1])
-    for i in range(len(new_matirx)):
-        new_matrix[i].remove(new_matrix[i][column])
-    return new_matrix    
+    new_matrix.remove(matrix[0])
+    for i in new_matrix:
+        del i[column]
+    return new_matrix
 
 def determinant(matrix):
     rows = len(matrix)
-    for rows in matrix:
-        if len(rows) != rows:
-            print("not a square matrix.")
-            return none
-        if len(matrix) == 2:
-            simple_determinant = matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]
-            return simple_determinant
-        else:
-            det = 0
-            columns = rows
-            for j in range(columns):
-                cofactor = (-1) ** j * matrix[0][j]\
-                           * determinant(sub_matrix(matrix, 0, j))
-                det += cofactor
-            returm det    
+    
+    if len(matrix) == 2:
+        simple_determinant = matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]
+        return simple_determinant
+    else:
+        det = 0
+        for j in range(rows):
+            cofactor = (-1) ** j * matrix[0][j] * determinant(sub_matrix(matrix, j))
+            det += cofactor
+        return det    
 
 class Vector():
     def __init__(self, a, b):
@@ -45,7 +40,7 @@ class Matrix():
         if len(grid) == rows:
             self.grid = grid
             if rows == columns:
-                self.determinant = determinant(grid, rows)
+                self.determinant = determinant(grid)
         else:
             raise DimensionalError("Number of rows do not match")
     def transpose(self):
