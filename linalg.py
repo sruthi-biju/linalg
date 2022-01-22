@@ -1,5 +1,24 @@
 import math
+from copy import deepcopy 
 
+def sub_matrix(matrix, column):
+    new_matrix = deepcopy(matrix)
+    new_matrix.remove(matrix[0])
+    for i in new_matrix:
+        del i[column]
+    return new_matrix
+def determinant(matrix):
+    rows = len(matrix)
+    if len(matrix) == 2:
+        simple_determinant = matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]
+        return simple_determinant
+    else:
+        det = 0
+        for j in range(rows):
+            cofactor = (-1) ** j * matrix[0][j] * determinant(sub_matrix(matrix, j))
+            det += cofactor
+        return det
+      
 class Vector():
     def __init__(self, a, b):
         self.norm = (a**2 + b**2) ** 0.5
@@ -8,9 +27,16 @@ class Vector():
         self.slope = b / a
 
 class Matrix():
-    def __init__(self, aa, ab, ba, bb):
-        self.grid = [[aa, ab], [ba, bb]]
-        self.determinant = aa * bb - ab * ba
+    def __init__(self, rows = 2, columns = 2, grid = [[1, 0], [0, 1]]):
+        for row in grid:
+            if len(row) != columns:
+                raise DimensionalError("Invalid columns")
+        if len(grid) == rows:
+            self.grid = grid
+            if rows == columns:
+                self.determinant = determinant(grid)
+        else:
+            raise DimensionalError("Number of rows do not match")
     def transpose(self):
         aa = self.grid[0][0]
         ab = self.grid[0][1]
@@ -53,4 +79,6 @@ class Matrix():
             return Vector(Pa, Pb) 
 
 class NonInvertibleMatrix(Exception):
+    pass
+class DimensionalError(Exception):
     pass
