@@ -7,10 +7,8 @@ def sub_matrix(matrix, column):
     for i in new_matrix:
         del i[column]
     return new_matrix
-
 def determinant(matrix):
     rows = len(matrix)
-    
     if len(matrix) == 2:
         simple_determinant = matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]
         return simple_determinant
@@ -19,18 +17,14 @@ def determinant(matrix):
         for j in range(rows):
             cofactor = (-1) ** j * matrix[0][j] * determinant(sub_matrix(matrix, j))
             det += cofactor
-        return det    
-
+        return det
+      
 class Vector():
     def __init__(self, a, b):
         self.norm = (a**2 + b**2) ** 0.5
         self.arg = math.atan(b / a)
         self.grid = [a, b]
         self.slope = b / a
-    def visualise(self):
-        plt.plot(self.grid[0], self.grid[1])
-        plt.show()
-
 
 class Matrix():
     def __init__(self, rows = 2, columns = 2, grid = [[1, 0], [0, 1]]):
