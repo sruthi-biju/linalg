@@ -1,7 +1,15 @@
 class Matrix():
-    def __init__(self, aa, ab, ba, bb):
-        self.grid = [[aa, ab], [ba, bb]]
-        self.determinant = aa * bb - ab * ba
+    def __init__(self, rows = 2, columns = 2, grid = [[1, 0], [0, 1]]):
+        for row in grid:
+            if len(row) != columns:
+                raise DimensionalError("Invalid columns")
+        if len(grid) == rows:
+            self.grid = grid
+            self.order = (rows, columns)
+            if rows == columns:
+                self.determinant = determinant(grid)
+        else:
+            raise DimensionalError("Number of rows do not match")
     def transpose(self):
         buffer = self.grid
         new_grid =[]
@@ -27,3 +35,8 @@ class Matrix():
         ba = self1.grid[1][0] * self2.grid[0][0] + self1.grid[1][1] * self2.grid[1][0]
         bb = self1.grid[1][0] * self2.grid[0][1] + self1.grid[1][1] * self2.grid[1][1]
         self1.product= [[aa, ab], [ba, bb]]        
+
+class NonInvertibleMatrix(Exception):
+    pass
+class DimensionalError(Exception):
+    pass        
